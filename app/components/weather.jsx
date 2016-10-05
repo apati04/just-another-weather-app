@@ -36,14 +36,14 @@ class Weather extends Component {
     const { isLoading, name, temp } = this.state;
     let renderMessage = () => {
       if(isLoading){
-        return <h3>fetching weather</h3>
+        return <h3 className="text-center">Fetching Weather</h3>
       } else if(temp && name) {
         return <WeatherMessage feels={temp} place={name}/>
       }
     }
     return(
       <div>
-        <h3>Get Weather</h3>
+        <h1 className="text-center">Get Weather</h1>
         <WeatherForm search={this.handleSearch.bind(this)}/>
         {renderMessage()}
       </div>
