@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import WeatherForm from 'WeatherForm';
 import WeatherMessage from 'WeatherMessage';
-import weatherMap from 'openWeatherMap';
+import weatherMap from 'weatherMap';
+import ErrorModal from 'ErrorModal';
 
 class Weather extends Component {
   constructor(props){
@@ -9,43 +10,49 @@ class Weather extends Component {
     this.state = {
       isLoading: false
     }
-
+    this.handleSearch = this.handleSearch.bind(this);
   }
-  handleSearch(name){
-    this.setState({isLoading: true})
-    weatherMap.getTemp(name)
-      .then(data => {
-        const {name} = data;
-        const {temp} = data.main;
+  handleSearch(location) {
+    this.setState({isLoading: true, errorMessage: undefined})
+    weatherMap.getTemp(location)
+      .then(temp => {
         this.setState({
           isLoading: false,
-          name,
+          location,
           temp
         })
-      },
-      err => {
+      }, err => {
         this.setState({
-          isLoading: false
+          isLoading: false,
+          errorMessage: err.message
         });
-        console.log(err);
       });
 }
 
   render(){
     // pulling vars off setState
-    const { isLoading, name, temp } = this.state;
+    let { isLoading, location, temp, errorMessage } = this.state;
     let renderMessage = () => {
       if(isLoading){
         return <h3 className="text-center">Fetching Weather</h3>
-      } else if(temp && name) {
-        return <WeatherMessage feels={temp} place={name}/>
+      } else if(temp && location) {
+        return <WeatherMessage temp={temp} location={location}/>
+      }
+    }
+    let renderError = () => {
+      if (typeof errorMessage === 'string'){
+        return (
+          <ErrorModal />
+        )
+      } else {
       }
     }
     return(
       <div>
         <h1 className="text-center">Get Weather</h1>
-        <WeatherForm search={this.handleSearch.bind(this)}/>
+        <WeatherForm search={this.handleSearch}/>
         {renderMessage()}
+        {renderError()}
       </div>
     )
   }

@@ -3,20 +3,17 @@ import React, {Component} from 'react';
 class WeatherForm extends Component {
 
   render(){
-    const { search } = this.props;
 
     return (
       <div>
-        <form onSubmit={
-          (e)=>{
-            e.preventDefault();
-            // call parent function
-            let searchText = this.refs.location.value;
-            if(searchText.length > 0){
-              this.refs.location.value = '';
-              search(searchText);
-            }
-          }}>
+        <form onSubmit={(e)=>{
+          e.preventDefault();
+          let location = this.refs.location.value;
+          if(location.length > 0){
+            this.refs.location.value = "";
+            this.props.search(location);
+          }
+        }}>
           <input type="text" ref="location"/>
           <button className="button expanded hollow" type="submit">Get Weather</button>
         </form>
