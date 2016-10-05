@@ -5,8 +5,11 @@ export default ({children}) =>{
       return(
         <div>
         <Nav/>
-        <h6>Main Component</h6>
-        {children}
+          <div className="row">
+            <div className="columns medium-6 large-4 small-centered">
+              {children}
+            </div>
+          </div>
         </div>
   )
 };
