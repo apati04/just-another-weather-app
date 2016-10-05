@@ -12,8 +12,27 @@ class Weather extends Component {
     }
     this.handleSearch = this.handleSearch.bind(this);
   }
+  componentDidMount(){
+    let {location} = this.props.location.query;
+    if(location && location.length > 0){
+      this.handleSearch(location);
+      window.location.hash = '#/';
+    }
+  }
+  componentWillReceiveProps({location}){
+    let navSearch = location.query.location;
+    if(navSearch && navSearch.length > 0){
+      this.handleSearch(navSearch);
+      window.location.hash = '#/';
+    }
+  }
   handleSearch(location) {
-    this.setState({isLoading: true, errorMessage: undefined})
+    this.setState({
+      isLoading: true,
+      errorMessage: undefined,
+      location: undefined,
+      temp: undefined
+    })
     weatherMap.getTemp(location)
       .then(temp => {
         this.setState({
