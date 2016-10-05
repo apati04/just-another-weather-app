@@ -42,7 +42,7 @@ class Weather extends Component {
     let renderError = () => {
       if (typeof errorMessage === 'string'){
         return (
-          <ErrorModal />
+          <ErrorModal message={errorMessage} />
         )
       } else {
       }
