@@ -5,7 +5,7 @@ import React, {Component} from 'react';
 export default (props)=>{
   return (
     <div>
-      <h1 className="text-center">About</h1>
+      <h1 className="text-center page-title">About</h1>
       <p>Here are the tools and resources used to build this app</p>
       <ul>
       <li><a href="http://foundation.zurb.com/">Foundation</a> - CSS Framework</li>

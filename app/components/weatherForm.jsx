@@ -14,7 +14,7 @@ class WeatherForm extends Component {
             this.props.search(location);
           }
         }}>
-          <input type="text" ref="location"/>
+          <input type="search" placeholder="Search weather by city" ref="location"/>
           <button className="button expanded hollow" type="submit">Get Weather</button>
         </form>
       </div>
